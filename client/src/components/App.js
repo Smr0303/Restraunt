@@ -1,10 +1,12 @@
-
-import './App.css';
-
+import React from 'react';
+import {BrowserRouter as Router,Link} from 'react-router-dom';
+import Header from './Header.js'
 function App() {
   return (
     <div className="App">
-      hiii
+<Router>
+  <Header/>
+</Router>
     </div>
   );
 }
