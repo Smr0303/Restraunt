@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import isEmpty from 'validator/lib/isEmpty';
+import isEmail from 'validator/lib/isEmail';
+import equals from 'validator/lib/equals';
+
 
 export default function SignUp() {
   const [formData, setdata] = useState({
@@ -29,8 +33,32 @@ export default function SignUp() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    if(isEmpty(username)||isEmpty(email)||isEmpty(password1)||isEmpty(password2)){
+setdata({
+  ...formData,
+  errorMsg:"All fields are not filled"
+});
+    }
+
+    else if(!isEmail(email)){
+      setdata({
+     ...formData,
+     errorMsg:"Email is invalid"
+      })
+    }
+    else if(!equals(password1,password2)){
+      setdata({
+     ...formData,
+     errorMsg:"Passwords do not match"
+      });
+    }
+    else{
+      //SUCCESS
+
+    }
   };
+
+ 
 
   return (
     <form type="submit" className="sign-up-form">
@@ -116,6 +144,7 @@ export default function SignUp() {
           {""}
           Alerady have an account?<Link to="/SignIn">LogIn</Link>
         </p>
+        <p>{JSON.stringify(formData)}</p>
       </div>
     </form>
   );
