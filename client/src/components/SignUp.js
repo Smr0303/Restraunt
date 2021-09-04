@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import isEmpty from "validator/lib/isEmpty";
 import isEmail from "validator/lib/isEmail";
 import equals from "validator/lib/equals";
-import {successMessage,errorMessage} from "./helpers/Message";
+import { successMessage, errorMessage } from "./helpers/Message";
 import Loading from "./helpers/Loading";
+import { Signup } from "./api/auth";
 
 export default function SignUp() {
   const [formData, setdata] = useState({
@@ -30,8 +31,8 @@ export default function SignUp() {
     setdata({
       ...formData,
       [e.target.name]: e.target.value,
-      successMsg:"",
-      errorMsg:"",
+      successMsg: "",
+      errorMsg: "",
     });
   };
   const handleSubmit = (e) => {
@@ -57,18 +58,43 @@ export default function SignUp() {
         errorMsg: "Passwords do not match",
       });
     } else {
-     setdata({
-       ...formData,
-       successMsg:"SignUp completed"
-     })
+      const { username, email, password1 } = formData;
+      const data = { username, email, password1 };
+      setdata({
+        ...formData,
+        loading: true,
+      });
+      Signup(data)
+        .then((res) => {
+          return res.json();
+        })
+        .then((result) => {
+          console.log(result);
+          setdata({
+            username: "",
+            email: "",
+            password1: "",
+            password2: "",
+            successMsg: result.data.successmsg,
+            errorMsg: false,
+            loading: false,
+          });
+        })
+        .catch((err) => {
+          console.log("Axios error", err);
+          setdata({
+            ...formData,
+            loading:false
+          });
+        });
     }
   };
 
   return (
     <div>
-      {loading&&Loading()}
-      {errorMsg&&errorMessage(errorMsg)}
-      {successMsg&&successMessage(successMsg)}
+      {loading && Loading()}
+      {errorMsg && errorMessage(errorMsg)}
+      {successMsg && successMessage(successMsg)}
       <form type="submit" className="sign-up-form" noValidate>
         {/*username*/}
         <div className="input-group mb-3">
