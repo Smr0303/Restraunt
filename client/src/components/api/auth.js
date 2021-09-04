@@ -7,6 +7,6 @@ export const Signup=async(data)=>{
             'Content-type':'application/json',
         }
     }
-   const response= await  axios.post('./api/auth/Signup',data,config);
+   const response= await  axios.post('http://localhost:8000/api/auth/Signup',data,config);
    return response;
 }
