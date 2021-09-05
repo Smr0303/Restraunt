@@ -71,16 +71,16 @@ export default function SignUp() {
           email: "",
           password1: "",
           password2: "",
-          successMsg: res.data.msg,
+          successMsg: res.data.successmsg,
           errorMsg: false,
           loading: false,
         })
       }).catch((err)=>{
-        console.log(err);
+        console.log(err.response);
         setdata({
           ...formData,
           loading:false,
-          errorMsg:err.response.data.error,
+          errorMsg:err.response.data.message
         });
       })
     }
