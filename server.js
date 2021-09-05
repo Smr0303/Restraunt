@@ -12,11 +12,11 @@ app.use(express.json());
 app.use('./api/auth',authRoutes);
 
 app.get('/',(req,res)=>{
-    res.send("Hi")
+    res.send("Inside the server")
 })
 
 connectDB();
-const port=process.env.PORT||8000
+const port=process.env.PORT||5000
 
 
 

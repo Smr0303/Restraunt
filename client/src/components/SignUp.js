@@ -64,27 +64,24 @@ export default function SignUp() {
         ...formData,
         loading: true,
       });
+
       Signup(data)
         .then((res) => {
-          return res.json();
-        })
-        .then((result) => {
-          console.log(result);
           setdata({
             username: "",
             email: "",
             password1: "",
             password2: "",
-            successMsg: result.data.successmsg,
+            successMsg: res.data.successmsg,
             errorMsg: false,
             loading: false,
           });
         })
         .catch((err) => {
-          console.log("Axios error", err);
+          console.log(err);
           setdata({
             ...formData,
-            loading:false
+            loading: false,
           });
         });
     }
