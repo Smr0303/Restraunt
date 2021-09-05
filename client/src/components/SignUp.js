@@ -5,7 +5,7 @@ import isEmail from "validator/lib/isEmail";
 import equals from "validator/lib/equals";
 import { successMessage, errorMessage } from "./helpers/Message";
 import Loading from "./helpers/Loading";
-import { Signup } from "./api/auth";
+import { Signup } from "./api/Auth";
 
 export default function SignUp() {
   const [formData, setdata] = useState({
@@ -64,26 +64,24 @@ export default function SignUp() {
         ...formData,
         loading: true,
       });
-
       Signup(data)
-        .then((res) => {
-          setdata({
-            username: "",
-            email: "",
-            password1: "",
-            password2: "",
-            successMsg: res.data.successmsg,
-            errorMsg: false,
-            loading: false,
-          });
+      .then((res) => {
+        setdata({
+          username: "",
+          email: "",
+          password1: "",
+          password2: "",
+          successMsg: res.data.msg,
+          errorMsg: false,
+          loading: false,
         })
-        .catch((err) => {
-          console.log(err);
-          setdata({
-            ...formData,
-            loading: false,
-          });
+      }).catch((err)=>{
+        console.log(err);
+        setdata({
+          ...formData,
+          loading:false
         });
+      })
     }
   };
 
