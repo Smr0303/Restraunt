@@ -1,12 +1,7 @@
 const express=require('express');
 const router=express.Router();
+const {SignupValidator,validatiorResult}=require("../middleware/validator")
 
-router.get("/",(req,res)=>{
-    res.send("Sam")
-})
-
-router.post('/Signup',(req,res)=>{
-    console.log("hii")
-})
+router.post('/Signup',SignupValidator,validatiorResult);
 
 module.exports=router;

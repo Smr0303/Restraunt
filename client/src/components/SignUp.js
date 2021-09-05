@@ -5,7 +5,7 @@ import isEmail from "validator/lib/isEmail";
 import equals from "validator/lib/equals";
 import { successMessage, errorMessage } from "./helpers/Message";
 import Loading from "./helpers/Loading";
-import { Signup } from "./api/Auth";
+import { Signup } from "./api/auth";
 
 export default function SignUp() {
   const [formData, setdata] = useState({
@@ -79,7 +79,8 @@ export default function SignUp() {
         console.log(err);
         setdata({
           ...formData,
-          loading:false
+          loading:false,
+          errorMsg:err.response.data.error,
         });
       })
     }
