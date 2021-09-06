@@ -172,8 +172,8 @@ export default function SignUp() {
             SignUp
           </button>
         </div>
-        <div className="">
-          <p className="text-xl-center">
+        <div className="form-line">
+          <p className="text-xl-center text-white">
             {""}
             Alerady have an account?<Link to="/SignIn">LogIn</Link>
           </p>
