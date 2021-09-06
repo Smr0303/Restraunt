@@ -89,7 +89,7 @@ export default function SignUp() {
   return (
     <div className="sign-up-container">
       <div className=" row  vh-100">
-        <div className="col0-md-5 mx-auto align-self-center w-50">
+        <div className="col-md-5 mx-auto align-self-center w-50">
 
       {loading && Loading()}
       {errorMsg && errorMessage(errorMsg)}

@@ -6,6 +6,7 @@ exports.SignupValidator = [
   check("email").isEmail().normalizeEmail().withMessage("Invalid email"),
   check("password1").isLength({min:8}).withMessage("Password should be atleast of 8 characters")
 ];
+
 exports.validatiorResult=(req,res,next)=>{
     const result=validationResult(req); 
     const error=!result.isEmpty();
@@ -19,3 +20,8 @@ exports.validatiorResult=(req,res,next)=>{
   }
   next();
 }
+
+exports.SigninValidator=[
+  check("email").isEmail().normalizeEmail().withMessage("Invalid email"),
+  check("password").isLength({min:8}).withMessage("Password should be atleast of 8 characters")
+];

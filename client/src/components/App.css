@@ -7,7 +7,15 @@
     overflow-y: hidden;
 }
 .form-line{
-    background-color: rgb(59, 65, 55);
+    background-color: rgb(21, 22, 20);
     margin-top: 20px;
     font-size: 20px;
+}
+.sign-in-container{
+    background-image:url("./assets/ryan-concepcion-50KffXbjIOg-unsplash.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:center;
+    overflow: hidden;
+    overflow-y: hidden;
 }
