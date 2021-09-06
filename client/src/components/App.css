@@ -1,0 +1,8 @@
+.sign-up-container{
+    background-image:url("./assets/pexels-alexy-almond-3758133.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:center;
+    overflow: hidden;
+    overflow-y: hidden;
+}

@@ -87,7 +87,10 @@ export default function SignUp() {
   };
 
   return (
-    <div>
+    <div className="sign-up-container">
+      <div className=" row  vh-100">
+        <div className="col0-md-5 mx-auto align-self-center w-50">
+
       {loading && Loading()}
       {errorMsg && errorMessage(errorMsg)}
       {successMsg && successMessage(successMsg)}
@@ -164,18 +167,20 @@ export default function SignUp() {
           <button
             onClick={handleSubmit}
             type="button"
-            className="btn btn-primary"
+            className="btn btn-primary w-100 btn-lg btn-block align-self-center"
           >
             SignUp
           </button>
         </div>
-        <div>
-          <p className="text-center text-black">
+        <div className="">
+          <p className="text-xl-center">
             {""}
             Alerady have an account?<Link to="/SignIn">LogIn</Link>
           </p>
         </div>
       </form>
+      </div>
+      </div>
     </div>
   );
 }
