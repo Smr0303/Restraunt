@@ -43,7 +43,7 @@ exports.SigninController = async (req, res) => {
       return;
     }
     else{
-    const isMatch = bcrypt.compare(password, user.password);
+    const isMatch = bcrypt.compare(password, user.password1);
     const payload = {
       user: {
         _id: user._id,
