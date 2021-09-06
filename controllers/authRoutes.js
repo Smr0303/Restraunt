@@ -41,20 +41,15 @@ exports.SigninController = async (req, res) => {
         error: "Invalid credentials",
       });
       return;
-    }
-    else{
-    const isMatch = bcrypt.compare(password, user.password1);
-    const payload = {
-      user: {
-        _id: user._id,
-      },
-    };
-    if (isMatch) {
-      const token = await jwt.sign(
-        payload,
-        jwtSecret,
-        { expiresIn: jwtExpire },
-        (err) => {
+    } else {
+      const isMatch = bcrypt.compare(password, user.password1);
+      const payload = {
+        user: {
+          _id: user._id,
+        },
+      };
+      if (isMatch) {
+        jwt.sign(payload, jwtSecret, { expiresIn: jwtExpire }, (err, token) => {
           if (err) {
             console.log("here", err);
             return;
@@ -64,11 +59,10 @@ exports.SigninController = async (req, res) => {
             token,
             user: { _id, username, email, role },
           });
-        }
-      );
+        });
+      }
     }
-  }
-} catch (err) {
+  } catch (err) {
     console.log("Signin server side ");
     res.status(500).json({
       error: "Server error try again!!",
