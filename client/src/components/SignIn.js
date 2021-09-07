@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link,useHistory } from "react-router-dom";
 import { errorMessage } from "./helpers/Message";
 import Loading from "./helpers/Loading";
@@ -7,8 +7,21 @@ import isEmail from "validator/lib/isEmail";
 import { Signin } from "./api/auth";
 import { checkAuthentication, setAuthentication } from "./helpers/setAuthentication";
 
+
+
 export default function SignIn() {
   let history=useHistory();
+
+  useEffect(()=>{
+    if(checkAuthentication()&& checkAuthentication().role===1){
+      history.push('/admin/dashboard');
+    }
+    else if(checkAuthentication()&& checkAuthentication().role===0) {
+      console.log("redirect to user");
+      history.push('/user/dashboard');
+    }
+
+  },[history]);
   const [formData, setdata] = useState({
     email: "",
     password: "",
