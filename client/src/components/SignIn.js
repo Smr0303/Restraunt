@@ -4,7 +4,8 @@ import { errorMessage } from "./helpers/Message";
 import Loading from "./helpers/Loading";
 import isEmpty from "validator/lib/isEmpty";
 import isEmail from "validator/lib/isEmail";
-import {Signin} from "./api/auth";
+import { Signin } from "./api/auth";
+import { setAuthentication } from "./helpers/setAuthentication";
 
 export default function SignIn() {
   const [formData, setdata] = useState({
@@ -36,15 +37,21 @@ export default function SignIn() {
         ...formData,
         errorMsg: "Email is invalid",
       });
-    }
-    else {
-      const { email, password} = formData;
-      const data = {email, password };
+    } else {
+      const { email, password } = formData;
+      const data = { email, password };
       setdata({
         ...formData,
         loading: true,
       });
       Signin(data)
+        .then((res) => {
+const {token,user}=res.data;
+setAuthentication(token,user);
+})
+        .catch((err) => {
+          console.log("SignIn axios error", err);
+        });
     }
   };
 
