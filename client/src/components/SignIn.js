@@ -5,7 +5,7 @@ import Loading from "./helpers/Loading";
 import isEmpty from "validator/lib/isEmpty";
 import isEmail from "validator/lib/isEmail";
 import { Signin } from "./api/auth";
-import { setAuthentication } from "./helpers/setAuthentication";
+import { checkAuthentication, setAuthentication } from "./helpers/setAuthentication";
 
 export default function SignIn() {
   const [formData, setdata] = useState({
@@ -13,9 +13,8 @@ export default function SignIn() {
     password: "",
     errorMsg: false,
     loading: false,
-    redirecttoDashboard: false,
   });
-  const { email, password, errorMsg, loading, redirecttoDashboard } = formData;
+  const { email, password, errorMsg, loading } = formData;
 
   const handleChange = (e) => {
     setdata({
@@ -48,6 +47,12 @@ export default function SignIn() {
         .then((res) => {
 const {token,user}=res.data;
 setAuthentication(token,user);
+if(checkAuthentication().role===1){
+  console.log("redirect to admin");
+}
+else{
+  console.log("redirect to user")
+}
 })
         .catch((err) => {
           console.log("SignIn axios error", err);
