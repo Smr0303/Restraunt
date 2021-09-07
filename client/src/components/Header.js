@@ -1,7 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { checkAuthentication } from "./helpers/setAuthentication";
+import { logOut } from "./helpers/setAuthentication";
 
-export default function Header() {
+export default withRouter(function Header() {
+  const handleLogout = ({ history }) => {
+    logOut(() => {
+      history.push("/");
+    });
+  };
   return (
     <>
       <div id="header">
@@ -23,21 +30,68 @@ export default function Header() {
             </button>
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
               <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
-                <li className="nav-item">
-                <Link to="/" className="nav-link " aria-current="page">
-                    Home
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/SignUp" className="nav-link " aria-current="page">
-                    SignUp
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/SignIn" className="nav-link">
-                    SignIn
-                  </Link>
-                </li>
+                {checkAuthentication() && checkAuthentication().role === 0 && (
+                  <>
+                    <li className="nav-item">
+                      <Link
+                        to="/user/dashboard"
+                        className="nav-link "
+                        aria-current="page"
+                      >
+                        User dashboard
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {checkAuthentication() && checkAuthentication().role === 1 && (
+                  <>
+                    <li className="nav-item">
+                      <Link
+                        to="/admin/dashboard"
+                        className="nav-link "
+                        aria-current="page"
+                      >
+                        Admin dashboard
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {!checkAuthentication() && (
+                  <>
+                    <li className="nav-item">
+                      <Link to="/" className="nav-link " aria-current="page">
+                        Home
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link
+                        to="/SignUp"
+                        className="nav-link "
+                        aria-current="page"
+                      >
+                        SignUp
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link to="/SignIn" className="nav-link">
+                        SignIn
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {checkAuthentication() && (
+                  <>
+                    <li className="nav-item">
+                      <button
+                        className="btn btn-link text-secondary text-decoration-none "
+                        aria-current="page"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
           </div>
@@ -45,4 +99,4 @@ export default function Header() {
       </div>
     </>
   );
-}
+});
