@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import { errorMessage } from "./helpers/Message";
 import Loading from "./helpers/Loading";
 import isEmpty from "validator/lib/isEmpty";
@@ -8,6 +8,7 @@ import { Signin } from "./api/auth";
 import { checkAuthentication, setAuthentication } from "./helpers/setAuthentication";
 
 export default function SignIn() {
+  let history=useHistory();
   const [formData, setdata] = useState({
     email: "",
     password: "",
@@ -47,11 +48,12 @@ export default function SignIn() {
         .then((res) => {
 const {token,user}=res.data;
 setAuthentication(token,user);
-if(checkAuthentication().role===1){
-  console.log("redirect to admin");
+if(checkAuthentication()&& checkAuthentication().role===1){
+  history.push('/admin/dashboard');
 }
 else{
-  console.log("redirect to user")
+  console.log("redirect to user");
+  history.push('/user/dashboard');
 }
 })
         .catch((err) => {
