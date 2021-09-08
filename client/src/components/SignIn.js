@@ -67,10 +67,17 @@ if(checkAuthentication()&& checkAuthentication().role===1){
 else{
   console.log("redirect to user");
   history.push('/user/dashboard');
+  setdata({
+    loading:false
+  })
 }
 })
         .catch((err) => {
           console.log("SignIn axios error", err);
+          setdata({
+            loading:false,
+            errorMsg:err.res.data.error
+          })
         });
     }
   };
