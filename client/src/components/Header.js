@@ -39,7 +39,7 @@ export default withRouter(function Header({history}) {
                         className="nav-link "
                         aria-current="page"
                       >
-                        User dashboard
+                        <i className="fa fa-home"></i> User dashboard
                       </Link>
                     </li>
                   </>
@@ -52,7 +52,7 @@ export default withRouter(function Header({history}) {
                         className="nav-link "
                         aria-current="page"
                       >
-                        Admin dashboard
+                        <i className="fa fa-home"></i> Admin dashboard
                       </Link>
                     </li>
                   </>
@@ -61,7 +61,7 @@ export default withRouter(function Header({history}) {
                   <>
                     <li className="nav-item">
                       <Link to="/" className="nav-link " aria-current="page">
-                        Home
+                        <i className="fa fa-home"></i> Home
                       </Link>
                     </li>
                     <li className="nav-item">
@@ -70,12 +70,12 @@ export default withRouter(function Header({history}) {
                         className="nav-link "
                         aria-current="page"
                       >
-                        SignUp
+                        <i className="fa fa-edit"></i> SignUp
                       </Link>
                     </li>
                     <li className="nav-item">
                       <Link to="/SignIn" className="nav-link">
-                        SignIn
+                        <i className="fa fa-user-secret"></i> SignIn
                       </Link>
                     </li>
                   </>
@@ -88,7 +88,7 @@ export default withRouter(function Header({history}) {
                         aria-current="page"
                         onClick={handleLogout}
                       >
-                        Logout
+                        <i className="fa fa-sign-out-alt"></i> Logout
                       </button>
                     </li>
                   </>
