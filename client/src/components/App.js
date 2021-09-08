@@ -8,6 +8,8 @@ import SignIn from './SignIn';
 import NotFound from './NotFound';
 import AdminDashboard from './AdminDashboard';
 import UserDashboard from './UserDashboard';
+import AdminRoute from './AdminRoute';
+import UserRoute from './UserRoute';
 function App() {
   return (
     <div className="App">
@@ -18,8 +20,8 @@ function App() {
   <Route exact path="/" component={Home}/>
   <Route exact path="/SignUp" component={SignUp}/>
   <Route exact path="/SignIn" component={SignIn}/>
-  <Route exact path="/admin/dashboard" component={AdminDashboard}/>
-  <Route exact path="/user/dashboard" component={UserDashboard}/>
+  <AdminRoute exact path="/admin/dashboard" component={AdminDashboard}/>
+  <UserRoute exact path="/user/dashboard" component={UserDashboard}/>
   <Route  path="*" component={NotFound}/>
 </Switch>
   </main>

@@ -3,8 +3,9 @@ import { Link, withRouter } from "react-router-dom";
 import { checkAuthentication } from "./helpers/setAuthentication";
 import { logOut } from "./helpers/setAuthentication";
 
-export default withRouter(function Header() {
-  const handleLogout = ({ history }) => {
+export default withRouter(function Header({history}) {
+  
+  const handleLogout = () => {
     logOut(() => {
       history.push("/");
     });
