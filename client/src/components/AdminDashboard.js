@@ -20,7 +20,11 @@ export default function AdminDashboard() {
         <div className="container">
           <div className="row pb-3">
             <div className="col-md-4 my-1 mw-100">
-              <button className="btn btn-outline-info btn-block" data-toggle="modal" data-target="#CategoryModal">
+              <button
+                className="btn btn-outline-info btn-block"
+                data-toggle="modal"
+                data-target="#CategoryModal"
+              >
                 <i className="fas fa-plus">Add Category</i>
               </button>
             </div>
@@ -41,41 +45,26 @@ export default function AdminDashboard() {
   };
   const showModal = () => {
     return (
-      <div
-        className="modal fade"
-        id="CategoryModal"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLongTitle">
-                Modal title
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
+      <div className="modal fade" id="CategoryModal">
+        <div className="modal-dialog modal-dialog-centered modal-lg">
+          <div className="modal-content row">
+            <div className="modal-header bg-info text-white">
+              <h5>Add Category</h5>
+              <button className="close" data-dismiss="modal">
+                <span>
+                  <i className="fas fa-times"></i>
+                </span>
               </button>
             </div>
-            <div className="modal-body">...</div>
+            <div className="modal-body">
+              <form>
+                <label className="text-secondary">Category</label>
+                <input type="text" className="form-control"/>
+              </form>
+            </div>
             <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" className="btn btn-primary">
-                Save changes
-              </button>
+              <button className="btn btn-secondary">Close</button>
+              <button className="btn btn-info">Submit</button>
             </div>
           </div>
         </div>
