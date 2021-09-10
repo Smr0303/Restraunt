@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import { createCategory } from "./api/category";
 
 export default function AdminDashboard() {
+  const [category, setCategory] = useState("");
+const handleChange=(e)=>{
+  setCategory(e.target.value);
+console.log(category);
+}
+const handleSubmit=(e)=>{
+  e.preventDefault();
+  const data=e.target.value
+  createCategory(data);
+}
   const showHeader = () => {
     return (
       <div className="bg-dark text-white ">
@@ -48,6 +59,7 @@ export default function AdminDashboard() {
       <div className="modal fade" id="CategoryModal">
         <div className="modal-dialog modal-dialog-centered modal-lg">
           <div className="modal-content row">
+              <form onSubmit={handleSubmit}>
             <div className="modal-header bg-info text-white">
               <h5>Add Category</h5>
               <button className="close" data-dismiss="modal">
@@ -57,15 +69,22 @@ export default function AdminDashboard() {
               </button>
             </div>
             <div className="modal-body">
-              <form>
                 <label className="text-secondary">Category</label>
-                <input type="text" className="form-control"/>
-              </form>
+                <input
+                  name="category"
+                  value={category}
+                  type="text"
+                  className="form-control"
+                  onChange={handleChange}
+                />
             </div>
             <div className="modal-footer">
               <button className="btn btn-secondary">Close</button>
-              <button className="btn btn-info">Submit</button>
+              <button type="submit" className="btn btn-info">
+                Submit
+              </button>
             </div>
+              </form>
           </div>
         </div>
       </div>
