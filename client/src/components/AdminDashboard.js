@@ -10,7 +10,11 @@ console.log(category);
 const handleSubmit=(e)=>{
   e.preventDefault();
   const data=e.target.value
-  createCategory(data);
+  createCategory(data).then((res)=>{
+    console.log(res.data.message)
+  }).catch((err)=>{
+    console.log(err,"Axios")
+  })
 }
   const showHeader = () => {
     return (
