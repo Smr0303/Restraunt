@@ -1,4 +1,6 @@
 exports.categoryController=(req,res)=>{
-res.send("hii");
+res.status(200).json({
+    successMessage:"Category succesfully created!!!",
+})
 console.log(req.body);
 }

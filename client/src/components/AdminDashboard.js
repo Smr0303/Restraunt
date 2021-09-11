@@ -18,12 +18,12 @@ export default function AdminDashboard() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isEmpty(category)) {
-      seterrorMsg("Please enter category")
+      seterrorMsg("Please enter category");
     } else {
       setloading(true);
 
       const data = { category };
-  
+
       createCategory(data)
         .then((res) => {
           setloading(false);
@@ -85,7 +85,14 @@ export default function AdminDashboard() {
             <form onSubmit={handleSubmit}>
               <div className="modal-header bg-info text-white">
                 <h5>Add Category</h5>
-                <button className="close" data-dismiss="modal">
+                <button
+                  className="close"
+                  data-dismiss="modal"
+                  onClick={() => {
+                    setsuccessMsg("");
+                    seterrorMsg("");
+                  }}
+                >
                   <span>
                     <i className="fas fa-times"></i>
                   </span>
@@ -95,7 +102,7 @@ export default function AdminDashboard() {
                 {errorMsg && errorMessage(errorMsg)}
                 {successMsg && successMessage(successMsg)}
                 {loading ? (
-                  Loading()
+                  <div className="text-center">{Loading()}</div>
                 ) : (
                   <Fragment>
                     <label className="text-secondary">Category</label>
