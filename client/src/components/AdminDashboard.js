@@ -28,6 +28,7 @@ export default function AdminDashboard() {
         .then((res) => {
           setloading(false);
           setsuccessMsg(res.data.successMessage);
+          setCategory("");
         })
         .catch((err) => {
           setloading(false);
