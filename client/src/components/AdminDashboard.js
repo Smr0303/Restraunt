@@ -1,23 +1,39 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { createCategory } from "./api/category";
 import isEmpty from "validator/lib/isEmpty";
+import { errorMessage, successMessage } from "./helpers/Message";
+import Loading from "./helpers/Loading";
 
 export default function AdminDashboard() {
   const [category, setCategory] = useState("");
+  const [errorMsg, seterrorMsg] = useState(false);
+  const [successMsg, setsuccessMsg] = useState(false);
+  const [loading, setloading] = useState(false);
   const handleChange = (e) => {
     setCategory(e.target.value);
+    seterrorMsg("");
+    setsuccessMsg("");
     console.log(category);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = { category };
-    createCategory(data)
-      .then((res) => {
-        console.log(res.data.message);
-      })
-      .catch((err) => {
-        console.log(err, "Axios");
-      });
+    if (isEmpty(category)) {
+      seterrorMsg("Please enter category")
+    } else {
+      setloading(true);
+
+      const data = { category };
+  
+      createCategory(data)
+        .then((res) => {
+          setloading(false);
+          setsuccessMsg(res.data.successMessage);
+        })
+        .catch((err) => {
+          setloading(false);
+          seterrorMsg(err.response.data.errorMessage);
+        });
+    }
   };
   const showHeader = () => {
     return (
@@ -76,14 +92,22 @@ export default function AdminDashboard() {
                 </button>
               </div>
               <div className="modal-body">
-                <label className="text-secondary">Category</label>
-                <input
-                  name="category"
-                  value={category}
-                  type="text"
-                  className="form-control"
-                  onChange={handleChange}
-                />
+                {errorMsg && errorMessage(errorMsg)}
+                {successMsg && successMessage(successMsg)}
+                {loading ? (
+                  Loading()
+                ) : (
+                  <Fragment>
+                    <label className="text-secondary">Category</label>
+                    <input
+                      name="category"
+                      value={category}
+                      type="text"
+                      className="form-control"
+                      onChange={handleChange}
+                    />
+                  </Fragment>
+                )}
               </div>
               <div className="modal-footer">
                 <button className="btn btn-secondary">Close</button>
