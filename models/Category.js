@@ -8,5 +8,5 @@ const CategorySchema = new mongoose.Schema({
     maxlength: 50,
   },
 },{timestamps:true});
-const category=mongoose.model('category',CategorySchema);
-module.exports=category;
+const Category=mongoose.model('category',CategorySchema);
+module.exports=Category;
