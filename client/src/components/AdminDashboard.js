@@ -64,7 +64,7 @@ export default function AdminDashboard() {
               </button>
             </div>
             <div className="col-md-4 my-1 mw-100  ">
-              <button className="btn btn-outline-warning btn-block">
+              <button className="btn btn-outline-warning btn-block" data-toggle="modal"   data-target="#FoodModal">
                 <i className="fas fa-plus">Add Food Item</i>
               </button>
             </div>
@@ -78,14 +78,14 @@ export default function AdminDashboard() {
       </div>
     );
   };
-  const showModal = () => {
+  const showCategorymodal = () => {
     return (
       <div className="modal fade" id="CategoryModal">
         <div className="modal-dialog modal-dialog-centered modal-lg">
           <div className="modal-content row">
             <form onSubmit={handleSubmit}>
               <div className="modal-header bg-info text-white">
-                <h5>Add Category</h5>
+                <h5>Add Food</h5>
                 <button
                   className="close"
                   data-dismiss="modal"
@@ -129,11 +129,55 @@ export default function AdminDashboard() {
       </div>
     );
   };
+  const showFoodmodal = () => {
+    return (
+      <div className="modal fade" id="FoodModal">
+        <div className="modal-dialog modal-dialog-centered modal-lg">
+          <div className="modal-content row">
+            <form onSubmit={handleSubmit}>
+              <div className="modal-header bg-warning text-white">
+                <h5>Add Category</h5>
+                <button
+                  className="close"
+                  data-dismiss="modal"
+                  onClick={() => {
+                    setsuccessMsg("");
+                    seterrorMsg("");
+                  }}
+                >
+                  <span>
+                    <i className="fas fa-times"></i>
+                  </span>
+                </button>
+              </div>
+              <div className="modal-body">
+                {errorMsg && errorMessage(errorMsg)}
+                {successMsg && successMessage(successMsg)}
+                {loading ? (
+                  <div className="text-center">{Loading()}</div>
+                ) : (
+                  <Fragment>
+                  </Fragment>
+                )}
+              </div>
+              <div className="modal-footer">
+                <button className="btn btn-secondary">Close</button>
+                <button type="submit" className="btn btn-warning">
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  };
   return (
     <div>
       {showHeader()}
       {showActionBtns()}
-      {showModal()}
+      {showCategorymodal()}
+      {showFoodmodal()}
     </div>
   );
 }
