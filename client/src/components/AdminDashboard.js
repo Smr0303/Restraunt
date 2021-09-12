@@ -64,7 +64,11 @@ export default function AdminDashboard() {
               </button>
             </div>
             <div className="col-md-4 my-1 mw-100  ">
-              <button className="btn btn-outline-warning btn-block" data-toggle="modal"   data-target="#FoodModal">
+              <button
+                className="btn btn-outline-warning btn-block"
+                data-toggle="modal"
+                data-target="#FoodModal"
+              >
                 <i className="fas fa-plus">Add Food Item</i>
               </button>
             </div>
@@ -85,7 +89,7 @@ export default function AdminDashboard() {
           <div className="modal-content row">
             <form onSubmit={handleSubmit}>
               <div className="modal-header bg-info text-white">
-                <h5>Add Food</h5>
+                <h5>Add Category</h5>
                 <button
                   className="close"
                   data-dismiss="modal"
@@ -136,7 +140,7 @@ export default function AdminDashboard() {
           <div className="modal-content row">
             <form onSubmit={handleSubmit}>
               <div className="modal-header bg-warning text-white">
-                <h5>Add Category</h5>
+                <h5>Add Food</h5>
                 <button
                   className="close"
                   data-dismiss="modal"
@@ -157,6 +161,41 @@ export default function AdminDashboard() {
                   <div className="text-center">{Loading()}</div>
                 ) : (
                   <Fragment>
+                    <div className="custom-file">
+                      <input type="file" className="custom-file-input" />
+                      <label className="custom-file-label">Choose File</label>
+                    </div>
+                    <div className="form-group">
+                      <label className="text-secondary">Name</label>
+                      <input type="text" className="form-control" />
+                    </div>
+                    <div className="form-group">
+                      <label className="text-secondary">Price</label>
+                      <input type="text" className="form-control" />
+                    </div>
+                    <div className="form-group">
+                      <label className="text-secondary">Description</label>
+                      <textarea
+                        type="text"
+                        className="form-control"
+                        rows="3"
+                      ></textarea>
+                    </div>
+                    <div className="form-row">
+                      <div className="form-group col-md-6">
+                        <label className="text-secondary">Category</label>
+                        <select className="custom-select mr-sm-2">
+                          <option>Choose one </option>
+                          <option>Pasta</option>
+                          <option>Subs</option>
+                          <option>Desserts</option>
+                        </select>
+                      </div>
+                    <div className="form-group col-md-6">
+                      <label className="text-secondary">Quantity</label>
+                      <input className="form-control" type="number" min="0" />
+                    </div>
+                    </div>
                   </Fragment>
                 )}
               </div>
