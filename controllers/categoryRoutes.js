@@ -1,4 +1,6 @@
-exports.categoryController=(req,res)=>{
+const Category=require("../models/Category");
+
+exports.create=(req,res)=>{
 res.status(200).json({
     successMessage:"Category succesfully created!!!",
 })
