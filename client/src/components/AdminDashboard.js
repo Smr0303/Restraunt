@@ -1,14 +1,25 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { createCategory } from "./api/category";
 import isEmpty from "validator/lib/isEmpty";
 import { errorMessage, successMessage } from "./helpers/Message";
 import Loading from "./helpers/Loading";
+import { getCategories } from "./api/category";
 
 export default function AdminDashboard() {
+  const [categories,setcategories]=useState(null)
   const [category, setCategory] = useState("");
   const [errorMsg, seterrorMsg] = useState(false);
   const [successMsg, setsuccessMsg] = useState(false);
   const [loading, setloading] = useState(false);
+
+  useEffect(()=>{
+loadcategories();
+  },[])
+
+  const loadcategories=()=>{
+    await getCategories()
+  }
+
   const handleChange = (e) => {
     setCategory(e.target.value);
     seterrorMsg("");
