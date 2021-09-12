@@ -1,4 +1,4 @@
-exports.cztegoryController=(req,res)=>{
+exports.categoryController=(req,res)=>{
 res.status(200).json({
     successMessage:"Category succesfully created!!!",
 })
