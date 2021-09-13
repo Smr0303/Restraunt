@@ -3,7 +3,7 @@ const jwtSecret=require("../config/key")
 
 exports.authenticate=(req,res,next)=>{
     const token=req.cookies.token;
-    console.log(req.cookies.token);
+    console.log(req.cookies,"cookies");
     if(!token){
 res.status(400).json({
     errorMessage:"You are not authenticated",
