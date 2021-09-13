@@ -11,7 +11,22 @@ export default function AdminDashboard() {
   const [errorMsg, seterrorMsg] = useState(false);
   const [successMsg, setsuccessMsg] = useState(false);
   const [loading, setloading] = useState(false);
-
+  const [productData, setproductData] = useState({
+    productImage: null,
+    productName: "",
+    productDescription: "",
+    productPrice: "",
+    productType: "",
+    productQuantity: "",
+  });
+  const {
+    productImage,
+    productName,
+    productDescription,
+    productPrice,
+    productType,
+    productQuantity,
+   } = productData;
   useEffect(() => {
     loadcategories();
   }, [setcategories]);
@@ -20,8 +35,8 @@ export default function AdminDashboard() {
     await getCategories()
       .then((response) => {
         console.log(response.data.categories);
-      setcategories(response.data.categories);
-})
+        setcategories(response.data.categories);
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -54,6 +69,22 @@ export default function AdminDashboard() {
         });
     }
   };
+
+const handleProductimage=((e)=>{
+  setproductData({
+    ...productData,
+    [e.target.name]:e.target.files[0],
+  })
+  console.log(productImage);
+})
+const handleProductchange=(e)=>{
+  setproductData({
+    ...productData,
+    [e.target.name]:e.target.value,
+  })
+  console.log(productData);
+}
+
   const showHeader = () => {
     return (
       <div className="bg-dark text-white ">
@@ -180,16 +211,16 @@ export default function AdminDashboard() {
                 ) : (
                   <Fragment>
                     <div className="custom-file">
-                      <input type="file" className="custom-file-input" />
+                      <input type="file" className="custom-file-input" name="productImage" onChange={handleProductimage}/>
                       <label className="custom-file-label">Choose File</label>
                     </div>
                     <div className="form-group">
                       <label className="text-secondary">Name</label>
-                      <input type="text" className="form-control" />
+                      <input type="text" className="form-control" name='productName' value={productName} onChange={handleProductchange}/> 
                     </div>
                     <div className="form-group">
                       <label className="text-secondary">Price</label>
-                      <input type="text" className="form-control" />
+                      <input type="text" className="form-control" name='productPrice' value={productPrice} onChange={handleProductchange}/>
                     </div>
                     <div className="form-group">
                       <label className="text-secondary">Description</label>
@@ -197,24 +228,30 @@ export default function AdminDashboard() {
                         type="text"
                         className="form-control"
                         rows="3"
+                        name='productDescription' value={productDescription}
+                        onChange={handleProductchange}
                       ></textarea>
                     </div>
                     <div className="form-row">
                       <div className="form-group col-md-6">
                         <label className="text-secondary">Category</label>
-                        { <select className="custom-select mr-sm-2">
-                           <option>Choose one</option>
-                           {categories&&categories.map((c)=>{
-                             return(<option key={c._id}
-                             value={c._id}>{c.category}</option>)
-                           })
-
-                           }
-                          </select>  }
+                        {
+                          <select className="custom-select mr-sm-2" name="productType" onChange={handleProductchange} >
+                            <option value="">Choose one</option>
+                            {categories &&
+                              categories.map((c) => {
+                                return (
+                                  <option key={c._id} value={c._id} >
+                                    {c.category}
+                                  </option>
+                                );
+                              })}
+                          </select>
+                        }
                       </div>
                       <div className="form-group col-md-6">
                         <label className="text-secondary">Quantity</label>
-                        <input className="form-control" type="number" min="0" />
+                        <input className="form-control" type="number" min="0" name="productQuantity" value={productQuantity} onChange={handleProductchange}/>
                       </div>
                     </div>
                   </Fragment>
