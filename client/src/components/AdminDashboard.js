@@ -6,19 +6,26 @@ import Loading from "./helpers/Loading";
 import { getCategories } from "./api/category";
 
 export default function AdminDashboard() {
-  const [categories,setcategories]=useState(null)
+  const [categories, setcategories] = useState(null);
   const [category, setCategory] = useState("");
   const [errorMsg, seterrorMsg] = useState(false);
   const [successMsg, setsuccessMsg] = useState(false);
   const [loading, setloading] = useState(false);
 
-//   useEffect(()=>{
-// loadcategories();
-//   },[])
+  useEffect(() => {
+    loadcategories();
+  }, [setcategories]);
 
-//   const loadcategories=async()=>{
-//     await getCategories();
-//   }
+  const loadcategories = async () => {
+    await getCategories()
+      .then((response) => {
+        console.log(response.data.categories);
+      setcategories(response.data.categories);
+})
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const handleChange = (e) => {
     setCategory(e.target.value);
@@ -195,17 +202,20 @@ export default function AdminDashboard() {
                     <div className="form-row">
                       <div className="form-group col-md-6">
                         <label className="text-secondary">Category</label>
-                        <select className="custom-select mr-sm-2">
-                          <option>Choose one </option>
-                          <option>Pasta</option>
-                          <option>Subs</option>
-                          <option>Desserts</option>
-                        </select>
+                        { <select className="custom-select mr-sm-2">
+                           <option>Choose one</option>
+                           {categories&&categories.map((c)=>{
+                             return(<option key={c._id}
+                             value={c._id}>{c.category}</option>)
+                           })
+
+                           }
+                          </select>  }
                       </div>
-                    <div className="form-group col-md-6">
-                      <label className="text-secondary">Quantity</label>
-                      <input className="form-control" type="number" min="0" />
-                    </div>
+                      <div className="form-group col-md-6">
+                        <label className="text-secondary">Quantity</label>
+                        <input className="form-control" type="number" min="0" />
+                      </div>
                     </div>
                   </Fragment>
                 )}

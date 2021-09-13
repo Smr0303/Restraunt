@@ -10,7 +10,7 @@ export const createCategory=async(data)=>{
         return response;
 }
 
-export const getCategories=async(data)=>{
+export const getCategories=async()=>{
         const response= await axios.get("http://localhost:5000/category/read")
         return response;
 }
