@@ -21,7 +21,7 @@ export const Signin = async (data) => {
   };
   const res = await axios.post(
     "http://localhost:5000/auth/Signin",
-    data,
+    JSON.stringify(data),
     config
   );
   return res;

@@ -12,13 +12,13 @@ export default function AdminDashboard() {
   const [successMsg, setsuccessMsg] = useState(false);
   const [loading, setloading] = useState(false);
 
-  useEffect(()=>{
-loadcategories();
-  },[])
+//   useEffect(()=>{
+// loadcategories();
+//   },[])
 
-  const loadcategories=()=>{
-    await getCategories()
-  }
+//   const loadcategories=async()=>{
+//     await getCategories();
+//   }
 
   const handleChange = (e) => {
     setCategory(e.target.value);
