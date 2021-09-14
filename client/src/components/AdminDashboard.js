@@ -4,6 +4,7 @@ import isEmpty from "validator/lib/isEmpty";
 import { errorMessage, successMessage } from "./helpers/Message";
 import Loading from "./helpers/Loading";
 import { getCategories } from "./api/category";
+import {createProduct} from "./api/product";
 
 export default function AdminDashboard() {
   const [categories, setcategories] = useState(null);
@@ -26,7 +27,7 @@ export default function AdminDashboard() {
     productPrice,
     productType,
     productQuantity,
-   } = productData;
+  } = productData;
   useEffect(() => {
     loadcategories();
   }, [setcategories]);
@@ -70,21 +71,48 @@ export default function AdminDashboard() {
     }
   };
 
-const handleProductimage=((e)=>{
-  setproductData({
-    ...productData,
-    [e.target.name]:e.target.files[0],
-  })
-  console.log(productImage);
-})
-const handleProductchange=(e)=>{
-  setproductData({
-    ...productData,
-    [e.target.name]:e.target.value,
-  })
-  console.log(productData);
-}
+  const handleProductimage = (e) => {
+    setproductData({
+      ...productData,
+      [e.target.name]: e.target.files[0],
+    });
+    console.log(productImage);
+  };
+  const handleProductchange = (e) => {
+    setproductData({
+      ...productData,
+      [e.target.name]: e.target.value,
+    });
+    console.log(productData);
+  };
 
+  const handleProductsubmit = (e) => {
+    e.preventDefault();
+    if (productImage === null) {
+      seterrorMsg("Please upload image");
+    } else if (
+      isEmpty(productName) ||
+      isEmpty(productPrice) ||
+      isEmpty(productDescription)
+    ) {
+      seterrorMsg("All input fields are not filled");
+    } else if (isEmpty(productType)) {
+      seterrorMsg("Please select a category");
+    } else if (isEmpty(productQuantity)) {
+      seterrorMsg("Please enter the quantity");
+    } else {
+      setsuccessMsg("Good Work");
+    }
+
+    const formData = new FormData();
+    formData.append("productName", productName);
+    formData.append("productPrice", productPrice);
+    formData.append("productDescription", productDescription);
+    formData.append("productType", productType);
+    formData.append("productQuantity", productQuantity);
+
+    createProduct(formData);
+  };
   const showHeader = () => {
     return (
       <div className="bg-dark text-white ">
@@ -187,7 +215,7 @@ const handleProductchange=(e)=>{
       <div className="modal fade" id="FoodModal">
         <div className="modal-dialog modal-dialog-centered modal-lg">
           <div className="modal-content row">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleProductsubmit}>
               <div className="modal-header bg-warning text-white">
                 <h5>Add Food</h5>
                 <button
@@ -211,16 +239,33 @@ const handleProductchange=(e)=>{
                 ) : (
                   <Fragment>
                     <div className="custom-file">
-                      <input type="file" className="custom-file-input" name="productImage" onChange={handleProductimage}/>
+                      <input
+                        type="file"
+                        className="custom-file-input"
+                        name="productImage"
+                        onChange={handleProductimage}
+                      />
                       <label className="custom-file-label">Choose File</label>
                     </div>
                     <div className="form-group">
                       <label className="text-secondary">Name</label>
-                      <input type="text" className="form-control" name='productName' value={productName} onChange={handleProductchange}/> 
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="productName"
+                        value={productName}
+                        onChange={handleProductchange}
+                      />
                     </div>
                     <div className="form-group">
                       <label className="text-secondary">Price</label>
-                      <input type="text" className="form-control" name='productPrice' value={productPrice} onChange={handleProductchange}/>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="productPrice"
+                        value={productPrice}
+                        onChange={handleProductchange}
+                      />
                     </div>
                     <div className="form-group">
                       <label className="text-secondary">Description</label>
@@ -228,7 +273,8 @@ const handleProductchange=(e)=>{
                         type="text"
                         className="form-control"
                         rows="3"
-                        name='productDescription' value={productDescription}
+                        name="productDescription"
+                        value={productDescription}
                         onChange={handleProductchange}
                       ></textarea>
                     </div>
@@ -236,12 +282,16 @@ const handleProductchange=(e)=>{
                       <div className="form-group col-md-6">
                         <label className="text-secondary">Category</label>
                         {
-                          <select className="custom-select mr-sm-2" name="productType" onChange={handleProductchange} >
+                          <select
+                            className="custom-select mr-sm-2"
+                            name="productType"
+                            onChange={handleProductchange}
+                          >
                             <option value="">Choose one</option>
                             {categories &&
                               categories.map((c) => {
                                 return (
-                                  <option key={c._id} value={c._id} >
+                                  <option key={c._id} value={c._id}>
                                     {c.category}
                                   </option>
                                 );
@@ -251,7 +301,14 @@ const handleProductchange=(e)=>{
                       </div>
                       <div className="form-group col-md-6">
                         <label className="text-secondary">Quantity</label>
-                        <input className="form-control" type="number" min="0" name="productQuantity" value={productQuantity} onChange={handleProductchange}/>
+                        <input
+                          className="form-control"
+                          type="number"
+                          min="0"
+                          name="productQuantity"
+                          value={productQuantity}
+                          onChange={handleProductchange}
+                        />
                       </div>
                     </div>
                   </Fragment>
