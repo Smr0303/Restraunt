@@ -6,6 +6,7 @@ const cors = require("cors");
 const connectDB = require("./database/db");
 const authRoutes = require("./routes/authRoutes");
 const categoryRoutes =require("./routes/categoryRoutes");
+const productRoutes=require("./routes/productRoutes");
 
 app.use(cors());
 app.use(morgan("dev"));
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/auth", authRoutes);
 app.use("/category",categoryRoutes);
+app.use("/product",productRoutes);
 
 app.get("/", (req, res) => {
   res.send("Inside the server");

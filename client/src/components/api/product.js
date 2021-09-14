@@ -5,6 +5,6 @@ export const createProduct=async(data)=>{
             "Content-type":"application/json",
         }
     }
-const res=await axios.post("http://localhost:5000/product/",data,config)
+const res=await axios.post("http://localhost:5000/product/create",data,config)
 return res;
 }
