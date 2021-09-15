@@ -215,7 +215,7 @@ export default function AdminDashboard() {
       <div className="modal fade" id="FoodModal">
         <div className="modal-dialog modal-dialog-centered modal-lg">
           <div className="modal-content row">
-            <form onSubmit={handleProductsubmit}>
+            <form onSubmit={handleProductsubmit} method="post" enctype="multipart/form-data">
               <div className="modal-header bg-warning text-white">
                 <h5>Add Food</h5>
                 <button
