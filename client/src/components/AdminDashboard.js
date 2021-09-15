@@ -105,6 +105,7 @@ export default function AdminDashboard() {
     }
 
     const formData = new FormData();
+    formData.append("productImage",productImage);
     formData.append("productName", productName);
     formData.append("productPrice", productPrice);
     formData.append("productDescription", productDescription);
