@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
-const {Objectid}=mongoose.Schema();
+const {ObjectId}=mongoose.Schema;
 const ProductSchema = new mongoose.Schema({
-  fileName: {
-    type: "String",
+  filename: {
+    type: 'String',
     required: true,
   },
   productName: {
@@ -17,11 +17,11 @@ const ProductSchema = new mongoose.Schema({
   },
 
   productPrice: {
-    type: number,
+    type: Number,
     required: true,
   },
   productType: {
-    type: Objectid,
+    type: ObjectId,
     ref:'Category',
     required: true,
   },

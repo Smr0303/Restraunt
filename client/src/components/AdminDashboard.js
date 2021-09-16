@@ -4,7 +4,7 @@ import isEmpty from "validator/lib/isEmpty";
 import { errorMessage, successMessage } from "./helpers/Message";
 import Loading from "./helpers/Loading";
 import { getCategories } from "./api/category";
-import {createProduct} from "./api/product";
+import { createProduct } from "./api/product";
 
 export default function AdminDashboard() {
   const [categories, setcategories] = useState(null);
@@ -83,7 +83,6 @@ export default function AdminDashboard() {
       ...productData,
       [e.target.name]: e.target.value,
     });
-    console.log(productData);
   };
 
   const handleProductsubmit = (e) => {
@@ -101,19 +100,33 @@ export default function AdminDashboard() {
     } else if (isEmpty(productQuantity)) {
       seterrorMsg("Please enter the quantity");
     } else {
-      setsuccessMsg("Good Work");
+      const formData = new FormData();
+      formData.append("productImage", productImage);
+      formData.append("productName", productName);
+      formData.append("productPrice", productPrice);
+      formData.append("productDescription", productDescription);
+      formData.append("productType", productType);
+      formData.append("productQuantity", productQuantity);
+
+      createProduct(formData)
+        .then((res) => {
+          setsuccessMsg(res.data.successMessage);
+          setproductData({
+            productImage: null,
+            productName: "",
+            productDescription: "",
+            productPrice: "",
+            productType: "",
+            productQuantity: "",
+          });
+        })
+        .catch((err) => {
+          console.log("Axios error",err)
+          seterrorMsg(err.res.data.errorMessage);
+        });
     }
-
-    const formData = new FormData();
-    formData.append("productImage",productImage);
-    formData.append("productName", productName);
-    formData.append("productPrice", productPrice);
-    formData.append("productDescription", productDescription);
-    formData.append("productType", productType);
-    formData.append("productQuantity", productQuantity);
-
-    createProduct(formData);
   };
+
   const showHeader = () => {
     return (
       <div className="bg-dark text-white ">
@@ -216,7 +229,11 @@ export default function AdminDashboard() {
       <div className="modal fade" id="FoodModal">
         <div className="modal-dialog modal-dialog-centered modal-lg">
           <div className="modal-content row">
-            <form onSubmit={handleProductsubmit} method="post" enctype="multipart/form-data">
+            <form
+              onSubmit={handleProductsubmit}
+              method="post"
+              encType="multipart/form-data"
+            >
               <div className="modal-header bg-warning text-white">
                 <h5>Add Food</h5>
                 <button
