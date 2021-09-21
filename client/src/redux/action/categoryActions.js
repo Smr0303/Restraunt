@@ -6,7 +6,7 @@ import {
 } from "../constants/messageConstants";
 import axios from "axios";
 
-const get_categories = () => async (dispatch) => {
+export const getCategories = () => async (dispatch) => {
   try {
     dispatch({type:START_LOADING});
     const response = axios.get("http://localhost:5000/category/read");

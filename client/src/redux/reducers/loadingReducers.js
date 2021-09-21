@@ -12,9 +12,8 @@ const loadingReducer = (state = initialState, action) => {
       return {
         loading: false,
       };
-      default: {
-        return state;
-      };
+    default:
+      return state;
   }
 };
 export default loadingReducer;
