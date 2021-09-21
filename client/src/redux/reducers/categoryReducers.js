@@ -1,4 +1,4 @@
-import { GET_CATEGORY } from "../constants/categoryConstants"
+import { GET_CATEGORY,CREATE_CATEGORY } from "../constants/categoryConstants"
 
 const initialState={
     categories:[],
@@ -8,6 +8,10 @@ const categoryReducer=(state=initialState,action)=>{
         case GET_CATEGORY:return{
             ...state,
             categories:action.payload
+        }
+        case CREATE_CATEGORY:return {
+            ...state,
+            categories:[...categories,action.payload]
         }
         default :return state;
     }
