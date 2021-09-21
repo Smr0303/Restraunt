@@ -29,4 +29,4 @@ const messageReducer=(state=intialState,action)=>{
         }
     }
 }
-export default reducers;
+export default messageReducer;

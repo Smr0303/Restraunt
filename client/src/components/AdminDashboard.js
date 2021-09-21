@@ -28,6 +28,7 @@ export default function AdminDashboard() {
     productType,
     productQuantity,
   } = productData;
+  
   useEffect(() => {
     loadcategories();
   }, [setcategories]);
