@@ -7,7 +7,7 @@ import categoryReducer from "./reducers/categoryReducers"
 
 const reducers = combineReducers({
   loading: loadingReducer,
-  message: messageReducer,
+  messages: messageReducer,
   categories:categoryReducer,
 });
 const initialState = {};

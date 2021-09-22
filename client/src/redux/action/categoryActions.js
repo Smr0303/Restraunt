@@ -36,7 +36,7 @@ export const createCategory = (data) => async (dispatch) => {
       config
     );
     dispatch({ type: STOP_LOADING });
-    dipatch({
+    dispatch({
       type: SHOW_SUCCESS_MESSAGE,
       payload: response.data.successMessage,
     });

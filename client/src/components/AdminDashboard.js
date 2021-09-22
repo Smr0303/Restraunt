@@ -1,10 +1,12 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { createCategory } from "./api/category";
 import isEmpty from "validator/lib/isEmpty";
 import { errorMessage, successMessage } from "./helpers/Message";
 import Loading from "./helpers/Loading";
 import { getCategories } from "./api/category";
 import { createProduct } from "./api/product";
+import {useSelector,useDispatch} from "react-redux";
+import {clear_messages} from "../redux/action/messageActions";
+import { createCategory } from "../redux/action/categoryActions";
 
 export default function AdminDashboard() {
   const [categories, setcategories] = useState(null);
@@ -354,3 +356,4 @@ export default function AdminDashboard() {
     </div>
   );
 }
+  
