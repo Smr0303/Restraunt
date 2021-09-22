@@ -9,11 +9,12 @@ import {clear_messages} from "../redux/action/messageActions";
 import { createCategory } from "../redux/action/categoryActions";
 
 export default function AdminDashboard() {
+  const {successMsg,errorMsg}=useSelector((state)=>state.messages);
+  const {loading}=useSelector(state=>state.loading)
+  const dispatch=useDispatch();
   const [categories, setcategories] = useState(null);
   const [category, setCategory] = useState("");
-  const [errorMsg, seterrorMsg] = useState(false);
-  const [successMsg, setsuccessMsg] = useState(false);
-  const [loading, setloading] = useState(false);
+  const [clientSideErrorMsg,setclientSideErrorMsg]=useState=("")
   const [productData, setproductData] = useState({
     productImage: null,
     productName: "",
@@ -48,29 +49,16 @@ export default function AdminDashboard() {
 
   const handleChange = (e) => {
     setCategory(e.target.value);
-    seterrorMsg("");
-    setsuccessMsg("");
-    console.log(category);
+    dispatch(clear_messages());
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isEmpty(category)) {
-      seterrorMsg("Please enter category");
+      setclientSideErrorMsg("Please enter category");
     } else {
-      setloading(true);
+const data = { category };
 
-      const data = { category };
-
-      createCategory(data)
-        .then((res) => {
-          setloading(false);
-          setsuccessMsg(res.data.successMessage);
-          setCategory("");
-        })
-        .catch((err) => {
-          setloading(false);
-          seterrorMsg(err.response.data.errorMessage);
-        });
+      dispatch(createCategory(data));
     }
   };
 
@@ -91,17 +79,17 @@ export default function AdminDashboard() {
   const handleProductsubmit = (e) => {
     e.preventDefault();
     if (productImage === null) {
-      seterrorMsg("Please upload image");
+      setclientSideErrorMsg("Please upload image");
     } else if (
       isEmpty(productName) ||
       isEmpty(productPrice) ||
       isEmpty(productDescription)
     ) {
-      seterrorMsg("All input fields are not filled");
+      setclientSideErrorMsg("All input fields are not filled");
     } else if (isEmpty(productType)) {
-      seterrorMsg("Please select a category");
+      setclientSideErrorMsg("Please select a category");
     } else if (isEmpty(productQuantity)) {
-      seterrorMsg("Please enter the quantity");
+      setclientSideErrorMsg("Please enter the quantity");
     } else {
       const formData = new FormData();
       formData.append("productImage", productImage);
@@ -188,8 +176,7 @@ export default function AdminDashboard() {
                   className="close"
                   data-dismiss="modal"
                   onClick={() => {
-                    setsuccessMsg("");
-                    seterrorMsg("");
+                   dispatch(clear_messages());
                   }}
                 >
                   <span>
@@ -198,6 +185,7 @@ export default function AdminDashboard() {
                 </button>
               </div>
               <div className="modal-body">
+                {clientSideErrorMsg&&errorMessage(clientSideErrorMsg)}
                 {errorMsg && errorMessage(errorMsg)}
                 {successMsg && successMessage(successMsg)}
                 {loading ? (
@@ -243,8 +231,7 @@ export default function AdminDashboard() {
                   className="close"
                   data-dismiss="modal"
                   onClick={() => {
-                    setsuccessMsg("");
-                    seterrorMsg("");
+                  dispatch(clear_messages());
                   }}
                 >
                   <span>

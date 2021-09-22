@@ -11,7 +11,7 @@ const categoryReducer=(state=initialState,action)=>{
         }
         case CREATE_CATEGORY:return {
             ...state,
-            categories:[...categories,action.payload]
+            categories:[...state.categories,action.payload]
         }
         default :return state;
     }

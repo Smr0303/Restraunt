@@ -5,7 +5,6 @@ import {
   SHOW_SUCCESS_MESSAGE,
 } from "../constants/messageConstants";
 import axios from "axios";
-import { response } from "express";
 
 export const getCategories = () => async (dispatch) => {
   try {
