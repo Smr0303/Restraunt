@@ -1,20 +1,21 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import isEmpty from "validator/lib/isEmpty";
 import { errorMessage, successMessage } from "./helpers/Message";
 import Loading from "./helpers/Loading";
-import { getCategories } from "./api/category";
-import { createProduct } from "./api/product";
-import {useSelector,useDispatch} from "react-redux";
-import {clear_messages} from "../redux/action/messageActions";
+// import { getCategories } from "./api/category";
+import { createProduct } from "../redux/action/productActions";
+import { useSelector, useDispatch } from "react-redux";
+import { clear_messages } from "../redux/action/messageActions";
 import { createCategory } from "../redux/action/categoryActions";
 
 export default function AdminDashboard() {
-  const {successMsg,errorMsg}=useSelector((state)=>state.messages);
-  const {loading}=useSelector(state=>state.loading)
-  const dispatch=useDispatch();
-  const [categories, setcategories] = useState(null);
+  const { successMsg, errorMsg } = useSelector((state) => state.messages);
+  const { loading } = useSelector((state) => state.loading);
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.categories);
+
   const [category, setCategory] = useState("");
-  const [clientSideErrorMsg,setclientSideErrorMsg]=useState=("")
+  const [clientSideErrorMsg, setclientSideErrorMsg] = useState("");
   const [productData, setproductData] = useState({
     productImage: null,
     productName: "",
@@ -31,21 +32,6 @@ export default function AdminDashboard() {
     productType,
     productQuantity,
   } = productData;
-  
-  useEffect(() => {
-    loadcategories();
-  }, [setcategories]);
-
-  const loadcategories = async () => {
-    await getCategories()
-      .then((response) => {
-        console.log(response.data.categories);
-        setcategories(response.data.categories);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   const handleChange = (e) => {
     setCategory(e.target.value);
@@ -56,9 +42,9 @@ export default function AdminDashboard() {
     if (isEmpty(category)) {
       setclientSideErrorMsg("Please enter category");
     } else {
-const data = { category };
-
+      const data = { category };
       dispatch(createCategory(data));
+      dispatch(clear_messages());
     }
   };
 
@@ -68,12 +54,14 @@ const data = { category };
       [e.target.name]: e.target.files[0],
     });
     console.log(productImage);
+    dispatch(clear_messages());
   };
   const handleProductchange = (e) => {
     setproductData({
       ...productData,
       [e.target.name]: e.target.value,
     });
+    dispatch(clear_messages());
   };
 
   const handleProductsubmit = (e) => {
@@ -88,8 +76,10 @@ const data = { category };
       setclientSideErrorMsg("All input fields are not filled");
     } else if (isEmpty(productType)) {
       setclientSideErrorMsg("Please select a category");
+      dispatch(clear_messages());
     } else if (isEmpty(productQuantity)) {
       setclientSideErrorMsg("Please enter the quantity");
+      dispatch(clear_messages());
     } else {
       const formData = new FormData();
       formData.append("productImage", productImage);
@@ -99,22 +89,15 @@ const data = { category };
       formData.append("productType", productType);
       formData.append("productQuantity", productQuantity);
 
-      createProduct(formData)
-        .then((res) => {
-          setsuccessMsg(res.data.successMessage);
-          setproductData({
-            productImage: null,
-            productName: "",
-            productDescription: "",
-            productPrice: "",
-            productType: "",
-            productQuantity: "",
-          });
-        })
-        .catch((err) => {
-          console.log("Axios error",err)
-          seterrorMsg(err.res.data.errorMessage);
-        });
+      dispatch(createProduct(formData));
+      setproductData({
+        productImage: null,
+        productName: "",
+        productDescription: "",
+        productPrice: "",
+        productType: "",
+        productQuantity: "",
+      });
     }
   };
 
@@ -176,7 +159,7 @@ const data = { category };
                   className="close"
                   data-dismiss="modal"
                   onClick={() => {
-                   dispatch(clear_messages());
+                    dispatch(clear_messages());
                   }}
                 >
                   <span>
@@ -185,7 +168,7 @@ const data = { category };
                 </button>
               </div>
               <div className="modal-body">
-                {clientSideErrorMsg&&errorMessage(clientSideErrorMsg)}
+                {clientSideErrorMsg && errorMessage(clientSideErrorMsg)}
                 {errorMsg && errorMessage(errorMsg)}
                 {successMsg && successMessage(successMsg)}
                 {loading ? (
@@ -231,7 +214,7 @@ const data = { category };
                   className="close"
                   data-dismiss="modal"
                   onClick={() => {
-                  dispatch(clear_messages());
+                    dispatch(clear_messages());
                   }}
                 >
                   <span>
@@ -240,6 +223,7 @@ const data = { category };
                 </button>
               </div>
               <div className="modal-body">
+                {clientSideErrorMsg && errorMessage(clientSideErrorMsg)}
                 {errorMsg && errorMessage(errorMsg)}
                 {successMsg && successMessage(successMsg)}
                 {loading ? (
@@ -343,4 +327,3 @@ const data = { category };
     </div>
   );
 }
-  

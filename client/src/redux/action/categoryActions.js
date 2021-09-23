@@ -9,10 +9,10 @@ import axios from "axios";
 export const getCategories = () => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
-    const response = axios.get("http://localhost:5000/category/read");
+    const response = await axios.get("http://localhost:5000/category/read");
     dispatch({ type: STOP_LOADING });
-    dispatch({ type: GET_CATEGORY, payload: (await response).data.categories });
-    dispatch({ type: SHOW_SUCCESS_MESSAGE, payload: (await response).data.me });
+    dispatch({ type: GET_CATEGORY, payload: response.data.categories });
+    dispatch({ type: SHOW_SUCCESS_MESSAGE, payload: response.data.message });
   } catch (err) {
     dispatch({ type: STOP_LOADING });
     dispatch({
@@ -35,11 +35,11 @@ export const createCategory = (data) => async (dispatch) => {
       config
     );
     dispatch({ type: STOP_LOADING });
+    dispatch({ type: CREATE_CATEGORY, payload: response.data.category });
     dispatch({
       type: SHOW_SUCCESS_MESSAGE,
       payload: response.data.successMessage,
     });
-    dispatch({ type: CREATE_CATEGORY, payload: response.data.category });
   } catch (err) {
     dispatch({ type: STOP_LOADING });
     dispatch({

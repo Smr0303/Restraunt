@@ -5,7 +5,7 @@ import {
   SHOW_ERROR_MESSAGE,
 } from "../constants/messageConstants";
 
-export const createProduct = (data = async (dispatch) => {
+export const createProduct = (data) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -24,7 +24,10 @@ export const createProduct = (data = async (dispatch) => {
       payload: response.data.successMessage,
     });
   } catch (err) {
-      dispatch({type:STOP_LOADING});
-      dispatch({type:SHOW_ERROR_MESSAGE,payload:err.response.data.errorMessage});
+    dispatch({ type: STOP_LOADING });
+    dispatch({
+      type: SHOW_ERROR_MESSAGE,
+      payload: err.response.data.errorMessage,
+    });
   }
-});
+};
