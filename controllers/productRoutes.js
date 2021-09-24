@@ -33,8 +33,9 @@ exports.create = async(req, res) => {
   }
 };
 
-exports.read=async()=>{
+exports.read=async(req,res)=>{
   try{
+    console.log("yes"); 
     const products =await Product.find({}).populate('productType','category');
     res.status(200).json({
       products,

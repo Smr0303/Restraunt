@@ -5,5 +5,5 @@ const authenticate=require("../middleware/authentication");
 const productController=require("../controllers/productRoutes");
 
 router.post("/create",upload.single('productImage'),productController.create);
-router.post("/read",productController.read);
+router.get("/read",productController.read);
 module.exports=router;
