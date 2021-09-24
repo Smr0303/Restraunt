@@ -2,7 +2,6 @@ import React, { Fragment, useState } from "react";
 import isEmpty from "validator/lib/isEmpty";
 import { errorMessage, successMessage } from "./helpers/Message";
 import Loading from "./helpers/Loading";
-// import { getCategories } from "./api/category";
 import { createProduct } from "../redux/action/productActions";
 import { useSelector, useDispatch } from "react-redux";
 import { clear_messages } from "../redux/action/messageActions";
@@ -53,7 +52,6 @@ export default function AdminDashboard() {
       ...productData,
       [e.target.name]: e.target.files[0],
     });
-    console.log(productImage);
     dispatch(clear_messages());
   };
   const handleProductchange = (e) => {
