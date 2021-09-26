@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../redux/action/productActions";
+import {getCategories} from "../redux/action/categoryActions";
 
 export default function AdminEditProduct({ match }) {
   const productId = match.params.productId;
   const dispatch = useDispatch();
   const { product } = useSelector((state) => state.products);
+  const {categories}=useSelector(state=>state.categories);
 
   const [productData, setproductData] = useState({
     productImage: null,
@@ -27,6 +29,7 @@ export default function AdminEditProduct({ match }) {
   useEffect(() => {
     if (!product) {
       dispatch(getProduct(productId));
+      dispatch(getCategories());
     } else {
       setproductData({
         productImage: product.filename,
@@ -39,5 +42,5 @@ export default function AdminEditProduct({ match }) {
     }
   }, [dispatch, productId, product]);
 
-  return <div>{console.log(productId)}</div>;
+  return <div>{console.log({categories})}</div>;
 }
