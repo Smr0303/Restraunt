@@ -331,7 +331,7 @@ export default function AdminDashboard() {
       <div className="container">
         <div className="row">
           <div className="card-deck">
-            {products.map((product) => {
+            {products&&products.map((product) => {
               
               return <Card key={product._id} product={product}/>
             })}
