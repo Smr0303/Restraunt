@@ -22,7 +22,7 @@ function App() {
   <Route exact path="/SignUp" component={SignUp}/>
   <Route exact path="/SignIn" component={SignIn}/>
   <AdminRoute exact path="/admin/dashboard" component={AdminDashboard}/>
-  <AdminRoute exact path="/admin/edit/product" component={AdminEditProduct}/>
+  <AdminRoute exact path="/admin/edit/:productId" component={AdminEditProduct}/>
   <UserRoute exact path="/user/dashboard" component={UserDashboard}/>
   <Route  path="*" component={NotFound}/>
 </Switch>

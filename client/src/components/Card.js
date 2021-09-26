@@ -26,7 +26,7 @@ export default function Card({ product }) {
             </span>
           </h6>
           <p>{product.productDescription}</p>
-          <Link to ="/admin/edit/product" className="btn btn-secondary btn-sm mr-1 my-1" type="Link">
+          <Link to ={`/admin/edit/${product._id}`} className="btn btn-secondary btn-sm mr-1 my-1" type="Link">
             <i className="far fa-edit pr-1"> Edit</i>
           </Link>
           <button

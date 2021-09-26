@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-export default function AdminEditProduct() {
-    return (
-        <div>
-            Inside AdminEdit Product
-        </div>
-    )
+export default function AdminEditProduct({ match }) {
+  const productId = match.params.productId;
+
+  return <div>{console.log(productId)}</div>;
 }
