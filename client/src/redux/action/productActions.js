@@ -5,6 +5,7 @@ import {
   SHOW_ERROR_MESSAGE,
 } from "../constants/messageConstants";
 import {
+  CALL_PRODUCT,
   CREATE_PRODUCT,
   DELETE_PRODUCT,
   GET_PRODUCT,
@@ -52,7 +53,7 @@ export const getProducts = (productId) => async (dispatch) => {
     });
   }
 };
-export const deleteProducts = (productId) => async(dispatch) => {
+export const deleteProducts = (productId) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
     const res = await axios.delete(
@@ -62,6 +63,26 @@ export const deleteProducts = (productId) => async(dispatch) => {
     dispatch({ type: DELETE_PRODUCT, payload: res.data });
   } catch (err) {
     console.log("Axios error at delete req", err);
+    dispatch({ type: STOP_LOADING });
+    dispatch({
+      type: SHOW_ERROR_MESSAGE,
+      payload: err.response.data.errorMessage,
+    });
+  }
+};
+export const getProduct = (productId) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const response = await axios.get(
+      `http://localhost:5000/product/${productId}`
+    );
+    dispatch({ type: STOP_LOADING });
+    dispatch({
+      type: CALL_PRODUCT,
+      payload: response.data,
+    });
+  } catch (err) {
+    console.log("Axios error at call req", err);
     dispatch({ type: STOP_LOADING });
     dispatch({
       type: SHOW_ERROR_MESSAGE,
