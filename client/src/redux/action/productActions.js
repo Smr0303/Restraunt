@@ -1,4 +1,5 @@
 import axios from "axios";
+import { response } from "express";
 import { START_LOADING, STOP_LOADING } from "../constants/loadingConstant";
 import {
   SHOW_SUCCESS_MESSAGE,
@@ -52,12 +53,12 @@ export const getProducts = (productId) => async (dispatch) => {
     });
   }
 };
-export const deleteProducts = () => (async) => {
+export const deleteProducts = (productId) => (async) => {
   try {
     dispatch({ type: START_LOADING });
-    const res = await axios.delete("http://localhost:5000/product/delete");
+    const res = await axios.delete(`http://localhost:5000/product/${productId}`);
     dispatch({ type: STOP_LOADING });
-    dispatch({ type: DELETE_PRODUCT, payload: product._id });
+    dispatch({ type: DELETE_PRODUCT, payload: response.data});
   } catch (err) {
     
   }

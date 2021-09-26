@@ -1,4 +1,6 @@
 export default function Card({ product }) {
+  const dispatch = useDispatch();
+  import { deleteProducts } from "../redux/action/productActions";
   return (
     <div className="col-md-4 my-3">
       <div className="card h-100">
@@ -21,15 +23,17 @@ export default function Card({ product }) {
               })}
             </span>
           </h6>
-          <p>
-              {product.productDescription}
-              </p>
-              <button className="btn btn-secondary btn-sm mr-1 my-1" type="button">
-                  <i className="far fa-edit pr-1"> Edit</i>
-              </button>
-              <button className="btn btn-danger btn-sm" type="button">
-                  <i className="fas fa-trash-alt"> Delete</i>
-              </button>
+          <p>{product.productDescription}</p>
+          <button className="btn btn-secondary btn-sm mr-1 my-1" type="button">
+            <i className="far fa-edit pr-1"> Edit</i>
+          </button>
+          <button
+            className="btn btn-danger btn-sm"
+            type="button"
+            onClick={() => dispatch(deleteProducts(product._id))}
+          >
+            <i className="fas fa-trash-alt"> Delete</i>
+          </button>
         </div>
       </div>
     </div>

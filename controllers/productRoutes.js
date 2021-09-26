@@ -1,6 +1,7 @@
 const Product = require("../models/Product");
+const fs = require("fs");
 
-exports.create = async(req, res) => {
+exports.create = async (req, res) => {
   console.log(req.file);
   const { filename } = req.file;
   const {
@@ -33,19 +34,35 @@ exports.create = async(req, res) => {
   }
 };
 
-exports.read=async(req,res)=>{
-  try{
-    console.log("yes"); 
-    const products =await Product.find({}).populate('productType','category');
+exports.read = async (req, res) => {
+  try {
+    console.log("yes");
+    const products = await Product.find({}).populate("productType", "category");
     res.status(200).json({
       products,
     });
- }
-  catch(err){
+  } catch (err) {
     console.log(err);
     res.status(500).json({
-      errorMessage:"Internal server error",
-    })
-
+      errorMessage: "Internal server error",
+    });
   }
-}
+};
+exports.delete = async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const deletedProduct = await Product.findByIdAndDelete(productId);
+    fs.unlink(`uploads/${documentProduct.filename}`, (err) => {
+      if (err) throw err;
+      console.log("Image succesfully deleted", documentProduct.filename);
+      res.status(200).json({
+        deletedProduct,
+      });
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      errorMessage: "Internal server error",
+    });
+  }
+};
