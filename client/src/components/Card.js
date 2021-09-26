@@ -25,10 +25,10 @@ export default function Card({ product }) {
               {product.productDescription}
               </p>
               <button className="btn btn-secondary btn-sm mr-1 my-1" type="button">
-                  <i className="far fa-edit pr-1">Edit</i>
+                  <i className="far fa-edit pr-1"> Edit</i>
               </button>
               <button className="btn btn-danger btn-sm" type="button">
-                  <i className="">Delete</i>
+                  <i className="fas fa-trash-alt"> Delete</i>
               </button>
         </div>
       </div>

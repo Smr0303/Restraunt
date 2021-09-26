@@ -4,7 +4,11 @@ import {
   SHOW_SUCCESS_MESSAGE,
   SHOW_ERROR_MESSAGE,
 } from "../constants/messageConstants";
-import { CREATE_PRODUCT, GET_PRODUCT } from "../constants/productConstants";
+import {
+  CREATE_PRODUCT,
+  DELETE_PRODUCT,
+  GET_PRODUCT,
+} from "../constants/productConstants";
 
 export const createProduct = (data) => async (dispatch) => {
   try {
@@ -33,7 +37,7 @@ export const createProduct = (data) => async (dispatch) => {
     });
   }
 };
-export const getProducts = () => async (dispatch) => {
+export const getProducts = (productId) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
     const response = await axios.get("http://localhost:5000/product/read");
@@ -46,5 +50,15 @@ export const getProducts = () => async (dispatch) => {
       type: SHOW_ERROR_MESSAGE,
       payload: err.response.data.errorMessage,
     });
+  }
+};
+export const deleteProducts = () => (async) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const res = await axios.delete("http://localhost:5000/product/delete");
+    dispatch({ type: STOP_LOADING });
+    dispatch({ type: DELETE_PRODUCT, payload: product._id });
+  } catch (err) {
+    
   }
 };

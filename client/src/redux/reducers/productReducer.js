@@ -1,4 +1,4 @@
-import { CREATE_PRODUCT, GET_PRODUCT } from "../constants/productConstants";
+import { CREATE_PRODUCT, DELETE_PRODUCT, GET_PRODUCT } from "../constants/productConstants";
 const initalState={
     products:[],
 }
@@ -12,6 +12,9 @@ const productReducer=(state=initalState,action)=>{
             ...state,
             products:[...action.payload]
 
+        }
+        case DELETE_PRODUCT:return{
+            products:products.filter(!product._id===action.payload._id)
         }
         default:return state
     }
