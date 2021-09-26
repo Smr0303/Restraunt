@@ -1,6 +1,7 @@
+import { deleteProducts } from "../redux/action/productActions";
+import { useDispatch } from "react-redux";
 export default function Card({ product }) {
   const dispatch = useDispatch();
-  import { deleteProducts } from "../redux/action/productActions";
   return (
     <div className="col-md-4 my-3">
       <div className="card h-100">

@@ -52,15 +52,15 @@ exports.delete = async (req, res) => {
   try {
     const productId = req.params.productId;
     const deletedProduct = await Product.findByIdAndDelete(productId);
-    fs.unlink(`uploads/${documentProduct.filename}`, (err) => {
+    fs.unlink(`uploads/${deletedProduct.filename}`, (err) => {
       if (err) throw err;
-      console.log("Image succesfully deleted", documentProduct.filename);
+      console.log("Image succesfully deleted", deletedProduct.filename);
       res.status(200).json({
         deletedProduct,
       });
     });
   } catch (err) {
-    console.log(err);
+    console.log(err,"dekete Error");
     res.status(500).json({
       errorMessage: "Internal server error",
     });
