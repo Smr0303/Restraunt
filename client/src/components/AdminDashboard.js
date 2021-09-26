@@ -8,6 +8,7 @@ import { clear_messages } from "../redux/action/messageActions";
 import { createCategory } from "../redux/action/categoryActions";
 import { getCategories } from "../redux/action/categoryActions";
 import { getProducts } from "../redux/action/productActions";
+import Card from "./Card";
 
 export default function AdminDashboard() {
   const dispatch = useDispatch();
@@ -330,9 +331,9 @@ export default function AdminDashboard() {
       <div className="container">
         <div className="row">
           <div className="card-deck">
-            {products.map((p) => {
-              console.log(products);
-              return <div className="card">{p.productName}</div>;
+            {products.map((product) => {
+              
+              return <Card key={product._id} product={product}/>
             })}
           </div>
         </div>

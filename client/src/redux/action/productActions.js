@@ -4,7 +4,7 @@ import {
   SHOW_SUCCESS_MESSAGE,
   SHOW_ERROR_MESSAGE,
 } from "../constants/messageConstants";
-import { GET_PRODUCT } from "../constants/productConstants";
+import { CREATE_PRODUCT, GET_PRODUCT } from "../constants/productConstants";
 
 export const createProduct = (data) => async (dispatch) => {
   try {
@@ -24,6 +24,7 @@ export const createProduct = (data) => async (dispatch) => {
       type: SHOW_SUCCESS_MESSAGE,
       payload: response.data.successMessage,
     });
+    dispatch({ type: CREATE_PRODUCT, payload: response.data.newProduct });
   } catch (err) {
     dispatch({ type: STOP_LOADING });
     dispatch({
@@ -39,8 +40,11 @@ export const getProducts = () => async (dispatch) => {
     dispatch({ type: STOP_LOADING });
     dispatch({ type: GET_PRODUCT, payload: response.data.products });
   } catch (err) {
-    console.log("Axios error at get req",err);
-    dispatch({type:STOP_LOADING});
-    dispatch({type:SHOW_ERROR_MESSAGE,payload:err.response.data.errorMessage});
+    console.log("Axios error at get req", err);
+    dispatch({ type: STOP_LOADING });
+    dispatch({
+      type: SHOW_ERROR_MESSAGE,
+      payload: err.response.data.errorMessage,
+    });
   }
 };
