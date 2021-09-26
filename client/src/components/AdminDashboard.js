@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import isEmpty from "validator/lib/isEmpty";
 import { errorMessage, successMessage } from "./helpers/Message";
 import Loading from "./helpers/Loading";
@@ -6,12 +6,21 @@ import { createProduct } from "../redux/action/productActions";
 import { useSelector, useDispatch } from "react-redux";
 import { clear_messages } from "../redux/action/messageActions";
 import { createCategory } from "../redux/action/categoryActions";
+import { getCategories } from "../redux/action/categoryActions";
+import { getProducts } from "../redux/action/productActions";
 
 export default function AdminDashboard() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
   const { successMsg, errorMsg } = useSelector((state) => state.messages);
   const { loading } = useSelector((state) => state.loading);
-  const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
+  const { products } = useSelector((state) => state.products);
 
   const [category, setCategory] = useState("");
   const [clientSideErrorMsg, setclientSideErrorMsg] = useState("");
@@ -316,12 +325,27 @@ export default function AdminDashboard() {
       </div>
     );
   };
+  const adminBody = () => {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="card-deck">
+            {products.map((p) => {
+              console.log(products);
+              return <div className="card">{p.productName}</div>;
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  };
   return (
     <div>
       {showHeader()}
       {showActionBtns()}
       {showCategorymodal()}
       {showFoodmodal()}
+      {adminBody()}
     </div>
   );
 }
