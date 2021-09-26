@@ -60,7 +60,22 @@ exports.delete = async (req, res) => {
       });
     });
   } catch (err) {
-    console.log(err,"dekete Error");
+    console.log(err, "dekete Error");
+    res.status(500).json({
+      errorMessage: "Internal server error",
+    });
+  }
+};
+
+exports.readone = async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const product = await Product.findById(productId);
+    res.status(201).json({
+      product,
+    });
+  } catch (err) {
+    console.log(err, "readOne Error");
     res.status(500).json({
       errorMessage: "Internal server error",
     });
