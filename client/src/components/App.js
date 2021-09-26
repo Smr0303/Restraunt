@@ -10,6 +10,7 @@ import AdminDashboard from './AdminDashboard';
 import UserDashboard from './UserDashboard';
 import AdminRoute from './AdminRoute';
 import UserRoute from './UserRoute';
+import AdminEditProduct from './AdminEditProduct.js';
 function App() {
   return (
     <div className="App">
@@ -21,6 +22,7 @@ function App() {
   <Route exact path="/SignUp" component={SignUp}/>
   <Route exact path="/SignIn" component={SignIn}/>
   <AdminRoute exact path="/admin/dashboard" component={AdminDashboard}/>
+  <AdminRoute exact path="/admin/edit/product" component={AdminEditProduct}/>
   <UserRoute exact path="/user/dashboard" component={UserDashboard}/>
   <Route  path="*" component={NotFound}/>
 </Switch>
