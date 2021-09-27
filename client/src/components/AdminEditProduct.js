@@ -68,6 +68,9 @@ export default function AdminEditProduct({ match }) {
     e.preventDefault();
 
   }
+  const handleProductchange=(e)=>{
+
+  }
 
   return (
     <Fragment>
@@ -95,7 +98,77 @@ export default function AdminEditProduct({ match }) {
                       hidden
                       onChange={handleImageUpload}/>
                     </label>
+                    <div className="form-group">
+                      <label className="text-secondary">Name</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="productName"
+                        value={productName}
+                        onChange={handleProductchange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="text-secondary">Price</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="productPrice"
+                        value={productPrice}
+                        onChange={handleProductchange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="text-secondary">Description</label>
+                      <textarea
+                        type="text"
+                        className="form-control"
+                        rows="3"
+                        name="productDescription"
+                        value={productDescription}
+                        onChange={handleProductchange}
+                      ></textarea>
+                    </div>
+                    <div className="form-group col-md-6">
+                    <div className="form-row">
+                      <div className="form-group col-md-6">
+                        <label className="text-secondary">Category</label>
+                        {
+                          <select
+                            className="custom-select mr-sm-2"
+                            name="productType"
+                            onChange={handleProductchange}
+                          >
+                            <option value="">Choose one</option>
+                            {categories &&
+                              categories.map((c) => {
+                                return (
+                                  <option key={c._id} value={c._id}>
+                                    {c.category}
+                                  </option>
+                                );
+                              })}
+                          </select>
+                        }
+                      </div>
+                        <label className="text-secondary">Quantity</label>
+                        <input
+                          className="form-control"
+                          type="number"
+                          min="0"
+                          name="productQuantity"
+                          value={productQuantity}
+                          onChange={handleProductchange}
+                        />
+                      </div>
+                      </div>
                   </Fragment>
+                  <div className="modal-footer">
+                <button className="btn btn-secondary">Close</button>
+                <button type="submit" className="btn btn-warning">
+                 Update
+                </button>
+              </div>
                 </form>
               </div>
             </div>

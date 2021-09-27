@@ -317,7 +317,7 @@ export default function AdminDashboard() {
               <div className="modal-footer">
                 <button className="btn btn-secondary">Close</button>
                 <button type="submit" className="btn btn-warning">
-                  Submit
+                Update
                 </button>
               </div>
             </form>
