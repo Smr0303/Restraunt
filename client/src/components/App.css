@@ -19,3 +19,15 @@
     overflow: hidden;
     overflow-y: hidden;
 }
+.home-page{
+    height:100vh,
+
+}
+.banner-image{
+    background-image:url("./assets/pexels-rachel-claire-5865071.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:center;
+    height: 60vh;
+
+}

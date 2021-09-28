@@ -42,6 +42,7 @@ export default function AdminEditProduct({ match }) {
       });
     }
   }, [dispatch, productId, product]);
+  console.log(product);
 
   const showHeader = () => {
     return (

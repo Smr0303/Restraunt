@@ -3,7 +3,9 @@ import React from 'react'
 export default function Home() {
     return (
         <div>
-          Home  
+         <section className="home-page">
+<div className="banner-image"></div>
+         </section>
         </div>
     )
 }
