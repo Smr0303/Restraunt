@@ -57,20 +57,20 @@ export default function AdminEditProduct({ match }) {
     );
   };
 
-  const handleImageUpload=(e)=>{
+  const handleImageUpload = (e) => {
     setproductData({
-      productImage:e.target.value
-    })
+      productImage: e.target.files[0],
+    });
+  };
 
-  }
-
-  const handleProductSubmit=(e)=>{
+  const handleProductSubmit = (e) => {
     e.preventDefault();
-
-  }
-  const handleProductchange=(e)=>{
-
-  }
+  };
+  const handleProductchange = (e) => {
+    setproductData({
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <Fragment>
@@ -90,14 +90,30 @@ export default function AdminEditProduct({ match }) {
                   </div>
                   <Fragment>
                     <label className="btn btn-dark mr-4">
-                      {" "}
                       Choose file
-                      <input type="file" 
-                      name="productimage"
-                      accept="images/*"
-                      hidden
-                      onChange={handleImageUpload}/>
+                      <input
+                        type="file"
+                        name="productimage"
+                        accept="images/*"
+                        hidden
+                        onChange={handleImageUpload}
+                      />
                     </label>
+                    {productImage && productImage.name ? (
+                      <span className="badge badge-secondary">
+                        {productImage.name}
+                      </span>
+                    ) : productImage ? (
+                      <img
+                        className="img-thumbnail"
+                        style={{
+                          width: "120px",
+                          height: "80px",
+                        }}
+                        src={`/uploads/${productImage}`}
+                        alt="product"
+                      />
+                    ) : null}
                     <div className="form-group">
                       <label className="text-secondary">Name</label>
                       <input
@@ -130,27 +146,27 @@ export default function AdminEditProduct({ match }) {
                       ></textarea>
                     </div>
                     <div className="form-group col-md-6">
-                    <div className="form-row">
-                      <div className="form-group col-md-6">
-                        <label className="text-secondary">Category</label>
-                        {
-                          <select
-                            className="custom-select mr-sm-2"
-                            name="productType"
-                            onChange={handleProductchange}
-                          >
-                            <option value="">Choose one</option>
-                            {categories &&
-                              categories.map((c) => {
-                                return (
-                                  <option key={c._id} value={c._id}>
-                                    {c.category}
-                                  </option>
-                                );
-                              })}
-                          </select>
-                        }
-                      </div>
+                      <div className="form-row">
+                        <div className="form-group col-md-6">
+                          <label className="text-secondary">Category</label>
+                          {
+                            <select
+                              className="custom-select mr-sm-2"
+                              name="productType"
+                              onChange={handleProductchange}
+                            >
+                              <option value="">Choose one</option>
+                              {categories &&
+                                categories.map((c) => {
+                                  return (
+                                    <option key={c._id} value={c._id}>
+                                      {c.category}
+                                    </option>
+                                  );
+                                })}
+                            </select>
+                          }
+                        </div>
                         <label className="text-secondary">Quantity</label>
                         <input
                           className="form-control"
@@ -161,14 +177,14 @@ export default function AdminEditProduct({ match }) {
                           onChange={handleProductchange}
                         />
                       </div>
-                      </div>
+                    </div>
                   </Fragment>
                   <div className="modal-footer">
-                <button className="btn btn-secondary">Close</button>
-                <button type="submit" className="btn btn-warning">
-                 Update
-                </button>
-              </div>
+                    <button className="btn btn-secondary">Close</button>
+                    <button type="submit" className="btn btn-warning">
+                      Update
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>
