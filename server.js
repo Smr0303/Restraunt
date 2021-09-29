@@ -15,6 +15,7 @@ app.use(cookieParser());
 app.use("/auth", authRoutes);
 app.use("/category",categoryRoutes);
 app.use("/product",productRoutes);
+app.use("/filter",productRoutes);
 app.use("/uploads",express.static('uploads'));
 
 app.get("/", (req, res) => {
