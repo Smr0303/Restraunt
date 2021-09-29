@@ -3,16 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { getNewArrivals } from "../redux/action/filterActions";
 export default function Home() {
   const dispatch = useDispatch();
-  getNewArrivals();
-  useEffect(() => {
-    dispatch();
+     useEffect(() => {
+    dispatch(getNewArrivals());
   }, [dispatch]);
-
-  const { newArrivals } = useSelector((state) => state.filters);
+const { newArrivals } = useSelector((state) => state.filters);
   return (
     <div>
       <section className="home-page">
         <div className="banner-image"></div>
+        {console.log(newArrivals)}
       </section>
     </div>
   );

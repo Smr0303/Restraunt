@@ -7,6 +7,7 @@ const connectDB = require("./database/db");
 const authRoutes = require("./routes/authRoutes");
 const categoryRoutes =require("./routes/categoryRoutes");
 const productRoutes=require("./routes/productRoutes");
+const filterRoutes=require("./routes/filterRoutes");
 
 app.use(cors());
 app.use(morgan("dev"));
