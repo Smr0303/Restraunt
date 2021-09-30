@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getNewArrivals } from "../redux/action/filterActions";
+import {Loading} from "./helpers/Loading";
+import  Card from './Card';
 export default function Home() {
   const dispatch = useDispatch();
      useEffect(() => {
