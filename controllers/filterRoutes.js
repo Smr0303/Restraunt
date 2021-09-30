@@ -1,5 +1,4 @@
 const Product = require("../models/Product");
-const fs = require("fs");
 
 exports.getNewArrivals = async (req, res) => {
     const sortBy=req.query.sortBy?req.query.sortBy:"desc";
@@ -7,7 +6,7 @@ exports.getNewArrivals = async (req, res) => {
   try {
       const newArrivals= await Product.find({}).sort({createdAt:sortBy}).limit(limit);
       res.status(200).json({
-          newArrivals,
+          newArrivals:newArrivals,
       })
   
   } catch (err) {

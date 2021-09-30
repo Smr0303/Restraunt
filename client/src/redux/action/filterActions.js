@@ -10,7 +10,7 @@ export const getNewArrivals =
       dispatch({
         type: START_LOADING,
       });
-      const response = axios.get(
+      const response = await axios.get(
         `http://localhost:5000/filter?sortBy=${sortBy}&limit=${limit}`
       );
       dispatch({ type: STOP_LOADING });
