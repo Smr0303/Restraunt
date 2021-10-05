@@ -21,6 +21,13 @@ const {loading}=useSelector((state)=>state.loading);
           <>
           <div className="container">
             <h3 className="py-5">New Arrivals</h3>
+            <div className="row">
+              {newArrivals&&newArrivals.map((newArrivals)=>(
+                <Card key={newArrivals._id} product={newArrivals}/>
+              )
+
+              )}
+            </div>
           </div>
           </>
         )}
