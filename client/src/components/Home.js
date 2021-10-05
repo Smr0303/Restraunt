@@ -33,6 +33,7 @@ const {loading}=useSelector((state)=>state.loading);
 
               )}
             </div>
+            <hr className="py-4"/>
             <h3 className="py-5">Menu</h3>
             <div className="row">
               {products&&products.map((products)=>(
