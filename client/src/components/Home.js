@@ -7,6 +7,7 @@ export default function Home() {
   const dispatch = useDispatch();
      useEffect(() => {
     dispatch(getNewArrivals());
+    console.log("yooooooooo")
   }, [dispatch]);
 const { newArrivals } = useSelector((state) => state.filters);
   return (
