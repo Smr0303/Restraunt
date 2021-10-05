@@ -333,7 +333,7 @@ export default function AdminDashboard() {
           <div className="card-deck">
             {products&&products.map((product) => {
               
-              return <Card key={product._id} product={product}/>
+              return <Card key={product._id} product={product} adminPage={true}/>
             })}
           </div>
         </div>
