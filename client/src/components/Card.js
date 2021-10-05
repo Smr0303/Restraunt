@@ -51,31 +51,17 @@ export default function Card({ product, adminPage = false, homePage = false }) {
                 className="btn btn-primary btn-sm mr-1 my-1"
                 type="Link"
               >
-                <i className="far fa-edit pr-1">View Product</i>
+               View Product
               </Link>
               <button
                 className="btn btn-warning btn-sm"
                 type="button"
                 onClick={() => dispatch(deleteProducts(product._id))}
               >
-                <i className="fas fa-trash-alt"> Add to Cart</i>
+     Add to Cart
               </button>
             </>
           )}
-          <Link
-            to={`/admin/edit/${product._id}`}
-            className="btn btn-secondary btn-sm mr-1 my-1"
-            type="Link"
-          >
-            <i className="far fa-edit pr-1"> Edit</i>
-          </Link>
-          <button
-            className="btn btn-danger btn-sm"
-            type="button"
-            onClick={() => dispatch(deleteProducts(product._id))}
-          >
-            <i className="fas fa-trash-alt"> Delete</i>
-          </button>
         </div>
       </div>
     </div>

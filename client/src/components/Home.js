@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getNewArrivals } from "../redux/action/filterActions";
+import { getProducts } from "../redux/action/productActions";
 import Loading from "./helpers/Loading";
 import  Card from './Card';
 export default function Home() {
@@ -9,7 +10,11 @@ export default function Home() {
     dispatch(getNewArrivals());
     console.log("yooooooooo")
   }, [dispatch]);
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
 const { newArrivals } = useSelector((state) => state.filters);
+const {products}=useSelector(state=>state.products)
 const {loading}=useSelector((state)=>state.loading);
   return (
     <div>
@@ -24,6 +29,14 @@ const {loading}=useSelector((state)=>state.loading);
             <div className="row">
               {newArrivals&&newArrivals.map((newArrivals)=>(
                 <Card key={newArrivals._id} product={newArrivals} homePage={true}/>
+              )
+
+              )}
+            </div>
+            <h3 className="py-5">Menu</h3>
+            <div className="row">
+              {products&&products.map((products)=>(
+                <Card key={products._id} product={products} homePage={true}/>
               )
 
               )}
