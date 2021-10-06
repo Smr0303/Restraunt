@@ -6,6 +6,7 @@ import Home from './Home';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import NotFound from './NotFound';
+import Shop from './Shop';
 import AdminDashboard from './AdminDashboard';
 import UserDashboard from './UserDashboard';
 import AdminRoute from './AdminRoute';
@@ -18,6 +19,7 @@ function App() {
   <Header/>
   <main>
 <Switch>
+  <Route exact path="/shop" component={Shop}/>
   <Route exact path="/" component={Home}/>
   <Route exact path="/SignUp" component={SignUp}/>
   <Route exact path="/SignIn" component={SignIn}/>
