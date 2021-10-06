@@ -42,6 +42,15 @@ export default withRouter(function Header({history}) {
                         <i className="fa fa-home"></i> User dashboard
                       </Link>
                     </li>
+                    <li className="nav-item">
+                      <Link
+                        to="/shop"
+                        className="nav-link "
+                        aria-current="page"
+                      >
+                        <i className="fa fa-shopping"></i> Shop
+                      </Link>
+                    </li>
                   </>
                 )}
                 {checkAuthentication() && checkAuthentication().role === 1 && (
