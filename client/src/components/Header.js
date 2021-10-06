@@ -75,6 +75,15 @@ export default withRouter(function Header({history}) {
                     </li>
                     <li className="nav-item">
                       <Link
+                        to="/shop"
+                        className="nav-link "
+                        aria-current="page"
+                      >
+                        <i className="fas fa-shopping-bag"></i> Shop
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link
                         to="/SignUp"
                         className="nav-link "
                         aria-current="page"

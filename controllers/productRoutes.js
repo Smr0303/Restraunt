@@ -40,7 +40,7 @@ exports.read = async (req, res) => {
     const products = await Product.find({}).populate("productType", "category");
     res.status(200).json({
       products,
-    }).limit(6);
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({
