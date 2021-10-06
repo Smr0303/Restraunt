@@ -81,3 +81,17 @@ exports.readone = async (req, res) => {
     });
   }
 };
+exports.readByCount = async (req, res) => {
+  try {
+    console.log("yes");
+    const products = await Product.find({}).populate("productType", "category");
+    res.status(200).json({
+      products,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      errorMessage: "Internal server error",
+    });
+  }
+};
